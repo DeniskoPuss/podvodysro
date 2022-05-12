@@ -22,9 +22,12 @@ Route::get('/', function () {
 
 Route::post('/', function (\Illuminate\Http\Request $request) {
     Message::create(['text' => $request->text]);
-
     return redirect()->back();
 });
+
+Route::delete('/messages', [\App\Http\Controllers\MessageController::class, 'destroy'])
+->name('messages.destroy');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

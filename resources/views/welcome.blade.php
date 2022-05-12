@@ -18,12 +18,24 @@
 </head>
 <body class="antialiased bg-gray-500">
 <div class="mt-10 grid grid-cols-1 gap-10 justify-items-center">
+    @if(Auth::user())
+        <form method="post" action="{{route('logout')}}">
+            @csrf
+            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Logout</button>
+        </form>
+
+        <form method="post" action="{{route('messages.destroy')}}">
+            @method('delete')
+            @csrf
+            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Delete</button>
+        </form>
+    @endif
     <div class="w-11/12 lg:w-1/2">
         <div class="mt-5 md:mt-0">
             <form action="{{ route('index') }}" method="post">
                 @csrf
                 <div class="shadow sm:rounded-md sm:overflow-hidden">
-                        <span class="flex justify-center opacity-50 font-extralight font-sans">© Made by FHI gang™ </span>
+                        <span class="flex justify-center opacity-50 font-extralight font-sans">© Made by EUBA gang™ </span>
                     <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                         <div>
                             <div class="mt-1">
@@ -49,7 +61,7 @@
                     </span>
                 </div>
                 <div class="p-8 border border-gray-300 rounded">
-                    {{ $message->text }}
+                    {!! nl2br($message->text) !!}
                 </div>
             </div>
         @endforeach
